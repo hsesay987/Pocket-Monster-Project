@@ -82,4 +82,4 @@ This project is open-source and free to use for educational or personal purposes
 
 - Pokémon data sourced from community-maintained datasets  
 - UI styled with [Materialize CSS](https://materializecss.com)  
-- Built with ❤️ by [Your Name]
+- Built by Hassan Sesay
