@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pocket Monster Encyclopedia</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Materialize CSS & jQuery -->
+    <link rel="stylesheet" href="materialize.min.css">
+    <script src="jquery-3.6.3.min.js"></script>
+    <script src="materialize.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .title-banner {
+            background-color: #ef5350;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .search-bar {
+            margin-top: 1rem;
+        }
+
+        #pokedex_grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .card.pokemon-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .card.pokemon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image img {
+            height: 160px;
+            object-fit: contain;
+            padding: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        .card-content h6 {
+            font-weight: bold;
+            color: #444;
+            margin: 0.5rem 0 0.3rem;
+            text-align: center;
+        }
+
+        .pokemon-type {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .pokemon-type .chip {
+            font-size: 0.75rem;
+            padding: 0 10px;
+            background-color: #e0e0e0;
+            color: #222;
+        }
+
+        #pokemon_info {
+            display: none;
+        }
+
+        .info-container {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+
+        .left_side, .right_side {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .left_side {
+            background-color: #eeeeee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .right_side {
+            background-color: #ef5350;
+            color: white;
+        }
+
+        .right_side h4 {
+            margin-top: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        img#pokemon_image {
+            width: 250px;
+            max-width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Title Banner -->
+<div class="title-banner">
+    <h3>Pocket Monster Encyclopedia</h3>
+</div>
+
+<!-- Search Input -->
+<div class="container search-bar">
+    <div class="input-field">
+        <input type="text" id="searchInput" placeholder="Search Pokémon by name...">
+    </div>
+</div>
+
+<!-- Pokédex Grid -->
+<div id="pokedex_cards" class="container">
+    <div id="pokedex_grid" class="row"></div>
+</div>
+
+<!-- Pokémon Info View -->
+<div id="pokemon_info" class="container">
+    <div class="info-container">
+        <div class="left_side">
+            <a href="#" class="btn grey" onclick="goBackToPokedex()">← Back to Pokedex</a>
+            <h2 id="pokemon-name-number"></h2>
+            <img src="" alt="Pokemon Image" id="pokemon_image">
+        </div>
+        <div class="right_side">
+            <h4>Height</h4>
+            <h6 id="height"></h6>
+            <h4>Weight</h4>
+            <h6 id="weight"></h6>
+            <h4>Candy</h4>
+            <h6 id="candy"></h6>
+            <h4>Candy Count</h4>
+            <h6 id="candy_count"></h6>
+            <h4>Spawn Chance</h4>
+            <h6 id="spawn_chance"></h6>
+            <h4>Spawn Time</h4>
+            <h6 id="spawn_time"></h6>
+            <h4>Weaknesses</h4>
+            <h6 id="weaknesses"></h6>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="pokedex.js"></script>
+<script>
+    function goBackToPokedex() {
+        document.getElementById('pokemon_info').style.display = 'none';
+        document.getElementById('pokedex_cards').style.display = 'block';
+    }
+
+    // Filter function
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const query = this.value.toLowerCase();
+        const cards = document.querySelectorAll('.pokemon-card');
+        cards.forEach(card => {
+            const name = card.querySelector('h6').textContent.toLowerCase();
+            card.parentElement.style.display = name.includes(query) ? '' : 'none';
+        });
+    });
+</script>
+</body>
+</html>
